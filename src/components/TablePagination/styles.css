@@ -7,9 +7,9 @@
 .rowsPage {
   display: flex;
   align-items: center;
-  gap: 10px;
+  gap: 1rem;
 }
 
 .rowsPage select {
-  width: 50px;
+  width: 4rem;
 }

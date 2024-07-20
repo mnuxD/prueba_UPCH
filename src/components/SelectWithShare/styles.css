@@ -2,12 +2,12 @@
   display: flex;
   justify-content: space-between;
   align-items: center;
-  width: 300px;
+  width: 20rem;
   font-weight: 400;
 }
 
 .dropdownCard {
-  max-height: 250px;
+  max-height: 15rem;
   overflow-y: auto;
 }
 

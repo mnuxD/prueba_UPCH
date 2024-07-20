@@ -2,8 +2,11 @@ import React from "react";
 import "./styles.css";
 import { PageHeader } from "./components/Header/Header";
 import TableList from "./components/TableList/TableList";
+import { useGetUsersQuery } from "../../redux/apis/userApi";
 
 const HomePage = () => {
+  const { data, isLoading } = useGetUsersQuery({});
+
   return (
     <main className="main">
       <div className="container">
