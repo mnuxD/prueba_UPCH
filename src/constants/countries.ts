@@ -1,0 +1,23 @@
+export const countriesData = [
+  { label: "AU", value: "au" },
+  { label: "BR", value: "br" },
+  { label: "CA", value: "ca" },
+  { label: "CH", value: "ch" },
+  { label: "DE", value: "de" },
+  { label: "DK", value: "dk" },
+  { label: "ES", value: "es" },
+  { label: "FI", value: "fi" },
+  { label: "FR", value: "fr" },
+  { label: "GB", value: "gb" },
+  { label: "IE", value: "ie" },
+  { label: "IN", value: "in" },
+  { label: "IR", value: "ir" },
+  { label: "MX", value: "mx" },
+  { label: "NL", value: "nl" },
+  { label: "NO", value: "no" },
+  { label: "NZ", value: "nz" },
+  { label: "RS", value: "rs" },
+  { label: "TR", value: "tr" },
+  { label: "UA", value: "ua" },
+  { label: "US", value: "us" }
+];

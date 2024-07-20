@@ -1,0 +1,21 @@
+.buttonDropdown {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  width: 300px;
+  padding: 3px 0px;
+}
+
+.dropdownCard {
+  max-height: 250px;
+  overflow-y: auto;
+}
+
+.dropdownCard__title {
+  font-weight: 500;
+  color: white;
+}
+
+.dropdownCard__item {
+  font-weight: 300;
+}
