@@ -40,7 +40,12 @@ export const PageHeader = () => {
           <i className="bi bi-trash3"></i> Eliminar
         </Button>
       </div>
-      <Toast show={showToast} onClose={toggleShowToast} className="toast">
+      <Toast
+        show={showToast}
+        onClose={toggleShowToast}
+        className="toast"
+        // style={{ width: "100%" }}
+      >
         <Toast.Body>
           <div className="toast__body">
             <SelectWithSearch

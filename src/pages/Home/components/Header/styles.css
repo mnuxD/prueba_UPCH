@@ -11,11 +11,11 @@
 }
 
 .toast {
-  box-shadow: none;
-  width: 100%;
+  box-shadow: none !important;
   display: flex;
   gap: 1rem;
   padding: 16px 0px;
+  width: 100% !important;
 }
 .toast__body {
   display: flex;
@@ -36,7 +36,6 @@
   align-items: center;
   border: 1px solid #ccc;
   border-radius: 0.25rem;
-  /* padding: 0.5rem 0.75rem; */
   background-color: #fff;
   max-width: 400px;
 }
