@@ -5,3 +5,9 @@
   overflow: hidden;
   gap: 1.5rem;
 }
+
+.photoUser {
+  border-radius: 40px;
+  width: 36px;
+  height: 36px;
+}

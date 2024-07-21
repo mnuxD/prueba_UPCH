@@ -1,4 +1,4 @@
-import { useState, useEffect } from "react";
+import { useState, useEffect, useMemo } from "react";
 
 interface AnyObject {
   [key: string]: any;
@@ -12,10 +12,62 @@ export function useTable<T extends AnyObject>(
   const [data, setData] = useState(initialData);
 
   /*
+   * Handle row selection
+   */
+  const [selectedRowKeys, setSelectedRowKeys] = useState<string[]>([]);
+  const handleRowSelect = (recordKey: string) => {
+    const selectedKeys = [...selectedRowKeys];
+    if (selectedKeys.includes(recordKey)) {
+      setSelectedRowKeys(selectedKeys.filter((key) => key !== recordKey));
+    } else {
+      setSelectedRowKeys([...selectedKeys, recordKey]);
+    }
+  };
+
+  /*
+   * Handle sorting
+   */
+  const [sortConfig, setSortConfig] = useState<AnyObject>({
+    key: null,
+    direction: null
+  });
+
+  function sortData(data: T[], sortKey: string, sortDirection: string) {
+    return [...data].sort((a, b) => {
+      const aValue = a[sortKey];
+      const bValue = b[sortKey];
+
+      if (aValue < bValue) {
+        return sortDirection === "asc" ? -1 : 1;
+      } else if (aValue > bValue) {
+        return sortDirection === "asc" ? 1 : -1;
+      }
+      return 0;
+    });
+  }
+
+  const sortedData = useMemo(() => {
+    let newData = data;
+    if (!sortConfig.key) {
+      return newData;
+    }
+    return sortData(newData, sortConfig.key, sortConfig.direction);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [sortConfig, data]);
+
+  function handleSort(key: string) {
+    let direction = "asc";
+    if (sortConfig.key === key && sortConfig.direction === "asc") {
+      direction = "desc";
+    }
+    setSortConfig({ key, direction });
+  }
+
+  /*
    * Handle pagination
    */
   const [currentPage, setCurrentPage] = useState(1);
-  function paginatedData(data: T[] = initialData) {
+  function paginatedData(data: T[] = sortedData) {
     const start = (currentPage - 1) * countPerPage;
     const end = start + countPerPage;
 
@@ -46,7 +98,7 @@ export function useTable<T extends AnyObject>(
     const searchTermLower = searchText.toLowerCase().trim();
 
     return (
-      data
+      sortedData
         .filter((item) => {
           const isMatchingItem = Object.entries(filters).every(
             ([columnId, filterValue]) => {
@@ -112,6 +164,12 @@ export function useTable<T extends AnyObject>(
     currentPage,
     handlePaginate,
     totalItems,
+    // sorting
+    sortConfig,
+    handleSort,
+    // row selection
+    selectedRowKeys,
+    handleRowSelect,
     // searching
     searchText,
     handleSearch,
