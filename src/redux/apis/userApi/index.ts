@@ -1,7 +1,10 @@
 import { createApi } from "@reduxjs/toolkit/query/react";
 import { createBaseQueryCustom } from "../interceptor.global";
 import { User, UserList } from "./types";
-import { buildQueryParams } from "../../../helpers/helpers";
+import {
+  buildQueryParams,
+  dynamicResultsCount
+} from "../../../helpers/helpers";
 
 export const userApi = createApi({
   reducerPath: "userAPI",
@@ -9,13 +12,13 @@ export const userApi = createApi({
   tagTypes: ["getUsers"],
   endpoints: (builder) => ({
     getUsers: builder.query<UserList, { nat?: string; gender?: string }>({
-      query: ({ nat, gender }) =>
+      query: ({ nat = "", gender = "" }) =>
         `/?${buildQueryParams({
           exc: "login,dob,registered",
-          results: 258,
+          results: dynamicResultsCount(nat, gender),
           nat,
           gender
-        })}&noinfo`,
+        })}&noinfo&seed=UPCH`,
       providesTags: ["getUsers"]
     }),
     updateUser: builder.mutation<any, { id: string; data: User }>({

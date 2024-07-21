@@ -1,0 +1,7 @@
+.tableContainer {
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+  overflow: hidden;
+  gap: 1.5rem;
+}

@@ -7,19 +7,25 @@ interface Props {
   options: OptionType[];
   title: string;
   className?: string;
+  handleChange: (value: string) => void;
+  selectedOption: string;
 }
 
-const SelectWithSearch = ({ className, options = [], title = "" }: Props) => {
+const SelectWithSearch = ({
+  className,
+  options = [],
+  title = "",
+  handleChange,
+  selectedOption
+}: Props) => {
   const [searchTerm, setSearchTerm] = useState("");
-  const [selectedOption, setSelectedOption] = useState(title);
 
   const filteredOptions = options.filter((option) =>
     option.label.toLowerCase().includes(searchTerm.toLowerCase())
   );
 
-  const handleOptionClick = (label: string) => {
-    setSelectedOption(label);
-  };
+  const selectedOptionLabel =
+    options.find((e) => e.value === selectedOption)?.label || "";
 
   return (
     <div className={`dropdown ${className}`}>
@@ -30,7 +36,7 @@ const SelectWithSearch = ({ className, options = [], title = "" }: Props) => {
         data-bs-toggle="dropdown"
         aria-expanded="false"
       >
-        {selectedOption}
+        {selectedOptionLabel ? selectedOptionLabel : title}
       </button>
       <ul
         className="dropdown-menu dropdownCard"
@@ -46,19 +52,22 @@ const SelectWithSearch = ({ className, options = [], title = "" }: Props) => {
           />
         </li>
         <li>
-          <span className="dropdown-item bg-secondary dropdownCard__title">
+          <span className="dropdown-item bg-secondary dropdownCard__title text-white">
             {title}
           </span>
         </li>
         {filteredOptions.map((option) => (
           <li key={option.value}>
-            <a
-              className="dropdown-item dropdownCard__item"
-              href="#"
-              onClick={() => handleOptionClick(option.label)}
+            <button
+              className={`dropdown-item ${
+                selectedOption === option.value
+                  ? "dropdownCard__item--active"
+                  : "dropdownCard__item"
+              }`}
+              onClick={() => handleChange(option.value)}
             >
               {option.label}
-            </a>
+            </button>
           </li>
         ))}
       </ul>

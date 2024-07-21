@@ -19,3 +19,12 @@
 .dropdownCard__item {
   font-weight: 300;
 }
+.dropdownCard__item--active {
+  font-weight: 300;
+  background-color: #0d6efd;
+  color: white;
+}
+
+.option-active {
+  background-color: "blue";
+}

@@ -1,8 +1,8 @@
-.main {
+.main-container {
   display: flex;
   flex-direction: column;
   padding: 1rem;
-  min-height: 100vh;
+  height: 100vh;
   padding-top: 4rem;
 }
 
@@ -11,4 +11,7 @@
   flex-direction: column;
   gap: 1.5rem;
   width: 100%;
+  flex-grow: 1;
+  overflow: hidden;
+  height: 100%;
 }

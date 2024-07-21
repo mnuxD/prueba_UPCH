@@ -1,7 +1,10 @@
 import { createSlice } from "@reduxjs/toolkit";
 
 const initialState = {
-  filters: {},
+  filters: {
+    nat: "",
+    gender: ""
+  },
   searchText: ""
 };
 

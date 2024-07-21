@@ -1,7 +1,8 @@
-.body {
+.header-page {
   display: flex;
   flex-direction: column;
   gap: 1rem;
+  flex-shrink: 0;
 }
 
 .buttonsContainer {
@@ -49,7 +50,10 @@
 
 .search-input .search-icon {
   color: #007bff;
+  position: absolute;
   font-size: 1rem;
+  right: 10px;
+}
+.pointer-icon {
   cursor: pointer;
-  margin-right: 1rem;
 }

@@ -1,7 +1,14 @@
 import React from "react";
-const CustomTable = () => {
+import { UserType } from "../../types";
+import "./styles.css";
+
+interface Props {
+  data: UserType[];
+}
+
+const CustomTable = ({ data }: Props) => {
   return (
-    <div className="dt-example">
+    <div className="customTable">
       <table className="table table-hover table-light" id="example">
         <thead>
           <tr>
@@ -20,207 +27,29 @@ const CustomTable = () => {
           </tr>
         </thead>
         <tbody>
-          <tr>
-            <th scope="row">
-              <input className="form-check-input" type="checkbox" value="" />
-            </th>
-            <td>
-              <img
-                src="https://randomuser.me/api/portraits/women/53.jpg"
-                alt=""
-                className="img-thumbnail"
-              />
-            </td>
+          {data.map((user) => (
+            <tr key={user.email}>
+              <th scope="row">
+                <input className="form-check-input" type="checkbox" value="" />
+              </th>
+              <td>
+                <img
+                  src={user.photo}
+                  alt="photo-user"
+                  className="img-thumbnail"
+                />
+              </td>
 
-            <td>Lesa Collins</td>
-            <td>Female</td>
-            <td>Valwood Pkwy 8929</td>
-            <td>527 567 368</td>
+              <td>{user.name}</td>
+              <td>{user.gender}</td>
+              <td>{user.address}</td>
+              <td>{user.phone}</td>
 
-            <td>example@gmail.com</td>
+              <td>{user.email}</td>
 
-            <td>UNITED STATES</td>
-          </tr>
-          <tr>
-            <th scope="row">
-              <input className="form-check-input" type="checkbox" value="" />
-            </th>
-            <td>
-              <img
-                src="https://randomuser.me/api/portraits/women/53.jpg"
-                alt=""
-                className="img-thumbnail"
-              />
-            </td>
-            <td>Lesa Collins</td>
-            <td>Female</td>
-            <td>Valwood Pkwy 8929</td>
-            <td>527 567 368</td>
-
-            <td>example@gmail.com</td>
-
-            <td>UNITED STATES</td>
-          </tr>
-          <tr>
-            <th scope="row">
-              <input className="form-check-input" type="checkbox" value="" />
-            </th>
-            <td>
-              <img
-                src="https://randomuser.me/api/portraits/women/53.jpg"
-                alt=""
-                className="img-thumbnail"
-              />
-            </td>
-            <td>Lesa Collins</td>
-            <td>Female</td>
-            <td>Valwood Pkwy 8929</td>
-            <td>527 567 368</td>
-
-            <td>example@gmail.com</td>
-
-            <td>UNITED STATES</td>
-          </tr>
-          <tr>
-            <th scope="row">
-              <input className="form-check-input" type="checkbox" value="" />
-            </th>
-            <td>
-              <img
-                src="https://randomuser.me/api/portraits/women/53.jpg"
-                alt=""
-                className="img-thumbnail"
-              />
-            </td>
-            <td>Lesa Collins</td>
-            <td>Female</td>
-            <td>Valwood Pkwy 8929</td>
-            <td>527 567 368</td>
-
-            <td>example@gmail.com</td>
-
-            <td>UNITED STATES</td>
-          </tr>
-          <tr>
-            <th scope="row">
-              <input className="form-check-input" type="checkbox" value="" />
-            </th>
-            <td>
-              <img
-                src="https://randomuser.me/api/portraits/women/53.jpg"
-                alt=""
-                className="img-thumbnail"
-              />
-            </td>
-            <td>Lesa Collins</td>
-            <td>Female</td>
-            <td>Valwood Pkwy 8929</td>
-            <td>527 567 368</td>
-
-            <td>example@gmail.com</td>
-
-            <td>UNITED STATES</td>
-          </tr>
-          <tr>
-            <th scope="row">
-              <input className="form-check-input" type="checkbox" value="" />
-            </th>
-            <td>
-              <img
-                src="https://randomuser.me/api/portraits/women/53.jpg"
-                alt=""
-                className="img-thumbnail"
-              />
-            </td>
-            <td>Lesa Collins</td>
-            <td>Female</td>
-            <td>Valwood Pkwy 8929</td>
-            <td>527 567 368</td>
-
-            <td>example@gmail.com</td>
-
-            <td>UNITED STATES</td>
-          </tr>
-          <tr>
-            <th scope="row">
-              <input className="form-check-input" type="checkbox" value="" />
-            </th>
-            <td>
-              <img
-                src="https://randomuser.me/api/portraits/women/53.jpg"
-                alt=""
-                className="img-thumbnail"
-              />
-            </td>
-            <td>Lesa Collins</td>
-            <td>Female</td>
-            <td>Valwood Pkwy 8929</td>
-            <td>527 567 368</td>
-
-            <td>example@gmail.com</td>
-
-            <td>UNITED STATES</td>
-          </tr>
-          <tr>
-            <th scope="row">
-              <input className="form-check-input" type="checkbox" value="" />
-            </th>
-            <td>
-              <img
-                src="https://randomuser.me/api/portraits/women/53.jpg"
-                alt=""
-                className="img-thumbnail"
-              />
-            </td>
-            <td>Lesa Collins</td>
-            <td>Female</td>
-            <td>Valwood Pkwy 8929</td>
-            <td>527 567 368</td>
-
-            <td>example@gmail.com</td>
-
-            <td>UNITED STATES</td>
-          </tr>
-          <tr>
-            <th scope="row">
-              <input className="form-check-input" type="checkbox" value="" />
-            </th>
-            <td>
-              <img
-                src="https://randomuser.me/api/portraits/women/53.jpg"
-                alt=""
-                className="img-thumbnail"
-              />
-            </td>
-            <td>Lesa Collins</td>
-            <td>Female</td>
-            <td>Valwood Pkwy 8929</td>
-            <td>527 567 368</td>
-
-            <td>example@gmail.com</td>
-
-            <td>UNITED STATES</td>
-          </tr>
-          <tr>
-            <th scope="row">
-              <input className="form-check-input" type="checkbox" value="" />
-            </th>
-            <td>
-              <img
-                src="https://randomuser.me/api/portraits/women/53.jpg"
-                alt=""
-                className="img-thumbnail"
-              />
-            </td>
-            <td>Lesa Collins</td>
-            <td>Female</td>
-            <td>Valwood Pkwy 8929</td>
-            <td>527 567 368</td>
-
-            <td>example@gmail.com</td>
-
-            <td>UNITED STATES</td>
-          </tr>
+              <td>{user.country}</td>
+            </tr>
+          ))}
         </tbody>
       </table>
     </div>

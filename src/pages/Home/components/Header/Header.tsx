@@ -1,5 +1,3 @@
-"use client";
-
 import React, { useState } from "react";
 import { Button, Toast } from "react-bootstrap";
 import "./styles.css";
@@ -9,13 +7,49 @@ import SelectWithSearch from "../../../../components/SelectWithShare/SelectWithS
 import { countriesData } from "../../../../constants/countries";
 import { gendersData } from "../../../../constants/genders";
 
-export const PageHeader = () => {
+interface Props {
+  searchText: string;
+  onSearchClear: () => void;
+  onSearchChange: (searchValue: string) => void;
+  filters: Record<string, any>;
+  updateFilter: (filters: Record<string, any>) => void;
+  resetFilter: () => void;
+}
+
+const Header = ({
+  searchText,
+  onSearchClear,
+  onSearchChange,
+  filters,
+  updateFilter,
+  resetFilter
+}: Props) => {
   const [showToast, setShowToast] = useState(false);
+  const [dynamicFilters, setDynamicFilters] = useState(filters);
+
+  const isFilterEmpty = Object.keys(dynamicFilters).length === 0;
 
   const toggleShowToast = () => setShowToast(!showToast);
 
+  const handleChangeCountry = (value: string) => {
+    setDynamicFilters({ ...dynamicFilters, nat: value });
+  };
+
+  const handleChangeGender = (value: string) => {
+    setDynamicFilters({ ...dynamicFilters, gender: value });
+  };
+
+  const handleChangeSearchText = (value: string) => {
+    onSearchChange(value);
+  };
+
+  const handleResetFilter = () => {
+    setDynamicFilters({});
+    resetFilter();
+  };
+
   return (
-    <div className="body">
+    <div className="header-page">
       <div className="buttonsContainer">
         <Button
           variant="outline-primary"
@@ -40,30 +74,61 @@ export const PageHeader = () => {
           <i className="bi bi-trash3"></i> Eliminar
         </Button>
       </div>
-      <Toast
-        show={showToast}
-        onClose={toggleShowToast}
-        className="toast"
-        // style={{ width: "100%" }}
-      >
+      <Toast show={showToast} onClose={toggleShowToast} className="toast">
         <Toast.Body>
           <div className="toast__body">
             <SelectWithSearch
-              className=""
               options={countriesData}
               title="NACIONALIDAD"
+              handleChange={handleChangeCountry}
+              selectedOption={dynamicFilters?.nat}
             />
-            <SelectWithSearch options={gendersData} title="GÉNERO" />
-            <Button variant="primary" size="sm" className="toast__button">
+            <SelectWithSearch
+              options={gendersData}
+              title="GÉNERO"
+              handleChange={handleChangeGender}
+              selectedOption={dynamicFilters?.gender}
+            />
+            <Button
+              variant="primary"
+              size="sm"
+              className="toast__button"
+              onClick={() => updateFilter(dynamicFilters)}
+            >
               <i className="bi bi-search"></i> Buscar
             </Button>
+            {!isFilterEmpty && (
+              <Button
+                variant="outline-danger"
+                size="sm"
+                className="toast__button"
+                onClick={handleResetFilter}
+              >
+                <i className="bi bi-x-lg"></i> Limpiar
+              </Button>
+            )}
           </div>
         </Toast.Body>
       </Toast>
       <div className="search-input">
-        <input type="text" className="form-control" placeholder="Buscar" />
-        <span className="search-icon bi bi-search"></span>
+        <input
+          type="text"
+          className="form-control"
+          placeholder="Buscar"
+          value={searchText}
+          onChange={(e) => handleChangeSearchText(e.target.value)}
+        />
+        {searchText ? (
+          <i
+            onClick={onSearchClear}
+            className="search-icon bi bi-x-lg pointer-icon"
+          ></i>
+        ) : (
+          <i className="search-icon bi bi-search"></i>
+        )}
       </div>
     </div>
   );
 };
+
+export default Header;
