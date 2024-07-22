@@ -1,5 +1,5 @@
 import React from "react";
-import { UserType } from "../../types";
+import { UserType } from "../../redux/apis/userApi/types";
 import "./styles.css";
 
 interface Props {

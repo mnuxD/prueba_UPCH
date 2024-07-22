@@ -1,5 +1,4 @@
 import { useState, useEffect, useMemo } from "react";
-import { UserType } from "../types";
 
 interface AnyObject {
   [key: string]: any;

@@ -1,6 +1,6 @@
 import React from "react";
-import { UserType } from "../../../../types";
 import HeaderCell from "../../../../components/HeaderCell/HeaderCell";
+import { UserType } from "../../../../redux/apis/userApi/types";
 import { Button } from "react-bootstrap";
 import "./styles.css";
 

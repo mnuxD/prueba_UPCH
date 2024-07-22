@@ -8,7 +8,7 @@ import { countriesData } from "../../../../constants/countries";
 import { gendersData } from "../../../../constants/genders";
 import ModalConfirmation from "../../../../components/ModalConfirmation/ModalConfirmation";
 import { useModal } from "../../../../hooks/use-modal";
-import { UserType } from "../../../../types";
+import { UserType } from "../../../../redux/apis/userApi/types";
 
 interface Props {
   data: UserType[];

@@ -1,31 +1,23 @@
-import {
-  BaseQueryFn,
-  FetchArgs,
-  FetchBaseQueryError,
-  fetchBaseQuery
-} from "@reduxjs/toolkit/query";
+import axios from "axios";
 
-export const createBaseQueryCustom = (
-  baseUrl: string | undefined
-): BaseQueryFn<string | FetchArgs, unknown, FetchBaseQueryError> => {
-  const baseQuery = fetchBaseQuery({
-    baseUrl: baseUrl || "",
-    prepareHeaders: (headers, { getState }) => {
-      const token = "";
-      if (token) {
-        headers.set("Authorization", `Bearer ${token}`);
-      }
-      return headers;
-    }
-  });
+const apiClient = axios.create({
+  baseURL: process.env.REACT_APP_BASE_URL_USER
+});
 
-  return async (args, api, extraOptions) => {
-    let result: any = await baseQuery(args, api, extraOptions);
+apiClient.interceptors.request.use(
+  (config) => {
+    return config;
+  },
+  (error) => {
+    return Promise.reject(error);
+  }
+);
 
-    if (result?.data?.token) {
-      // logic to manage token
-    }
+apiClient.interceptors.response.use(
+  (response) => response,
+  (error) => {
+    return Promise.reject(error);
+  }
+);
 
-    return result;
-  };
-};
+export default apiClient;

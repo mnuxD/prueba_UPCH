@@ -1,8 +1,19 @@
-export interface UserList {
-  results: User[];
+export interface UserType {
+  name: string;
+  photo: string;
+  gender: string;
+  address: string;
+  phone: string;
+  email: string;
+  country: string;
+  nat: string;
 }
 
-export interface User {
+export interface UserList {
+  results: OriginalUser[];
+}
+
+export interface OriginalUser {
   gender: Gender;
   name: Name;
   location: Location;

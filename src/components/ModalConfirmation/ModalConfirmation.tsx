@@ -21,6 +21,10 @@ const ModalConfirmation = ({
   successMessage = "Operación exitosa"
 }: Props) => {
   const [isLoading, setIsLoading] = useState(false);
+
+  const { openModal: openSuccessModal } = useModal("successModal");
+  const { openModal: openErrorModal } = useModal("errorModal");
+
   const handleConfirm = async () => {
     try {
       setIsLoading(true);
@@ -34,13 +38,10 @@ const ModalConfirmation = ({
     onClose();
   };
 
-  const { openModal: openSuccessModal } = useModal("successModal");
-  const { openModal: openErrorModal } = useModal("errorModal");
-
   return (
     <>
-      <ModalAlert id={"successModal"} type="success" message={successMessage} />
-      <ModalAlert id={"errorModal"} type="error" message={errorMessage} />
+      <ModalAlert id="successModal" type="success" message={successMessage} />
+      <ModalAlert id="errorModal" type="error" message={errorMessage} />
       <div
         className="modal fade"
         id={id}
