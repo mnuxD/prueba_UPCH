@@ -9,6 +9,8 @@ import { gendersData } from "../../../../constants/genders";
 import ModalConfirmation from "../../../../components/ModalConfirmation/ModalConfirmation";
 import { useModal } from "../../../../hooks/use-modal";
 import { UserType } from "../../../../redux/apis/userApi/types";
+import { useDispatch } from "react-redux";
+import { setFilters } from "../../../../redux/features/usersSlice";
 
 interface Props {
   data: UserType[];
@@ -16,8 +18,6 @@ interface Props {
   onSearchClear: () => void;
   onSearchChange: (searchValue: string) => void;
   filters: Record<string, any>;
-  updateFilter: (filters: Record<string, any>) => void;
-  resetFilter: () => void;
   selectedUsers: string[];
   onDeleteGroup: () => void;
   cleanRowsSelected: () => void;
@@ -29,12 +29,11 @@ const Header = ({
   onSearchClear,
   onSearchChange,
   filters,
-  updateFilter,
-  resetFilter,
   selectedUsers,
   onDeleteGroup,
   cleanRowsSelected
 }: Props) => {
+  const dispatch = useDispatch();
   const [showToast, setShowToast] = useState(false);
   const [dynamicFilters, setDynamicFilters] = useState(filters);
   const selectedUsersCount = selectedUsers.length;
@@ -45,6 +44,10 @@ const Header = ({
   const isFilterEmpty = Object.keys(dynamicFilters).length === 0;
 
   const toggleShowToast = () => setShowToast(!showToast);
+
+  const handleUpdateFilter = () => {
+    dispatch(setFilters(dynamicFilters));
+  };
 
   const handleChangeCountry = (value: string) => {
     setDynamicFilters({ ...dynamicFilters, nat: value });
@@ -60,7 +63,7 @@ const Header = ({
 
   const handleResetFilter = () => {
     setDynamicFilters({});
-    resetFilter();
+    dispatch(setFilters({}));
   };
 
   return (
@@ -140,7 +143,7 @@ const Header = ({
               variant="primary"
               size="sm"
               className="toast__button"
-              onClick={() => updateFilter(dynamicFilters)}
+              onClick={handleUpdateFilter}
             >
               <i className="bi bi-search"></i> Buscar
             </Button>

@@ -9,6 +9,8 @@ import { useModal } from "../../../../hooks/use-modal";
 import ModalConfirmation from "../../../../components/ModalConfirmation/ModalConfirmation";
 import { useDeleteUser } from "../../../../redux/hooks/userHooks";
 import "./styles.css";
+import { useSelector } from "react-redux";
+import { RootState } from "../../../../redux/store";
 
 interface Props {
   data: UserType[];
@@ -20,6 +22,8 @@ const TableList = ({ data, isLoading, refetch }: Props) => {
   const [pageSize, setPageSize] = useState(10);
   const [userToDelete, setUserToDelete] = useState("");
   const { deleteUser } = useDeleteUser();
+
+  const filters = useSelector((state: RootState) => state.users.filters);
 
   const nameUserToDelete =
     data.find((e) => e.email === userToDelete)?.name || "";
@@ -66,12 +70,9 @@ const TableList = ({ data, isLoading, refetch }: Props) => {
     currentPage,
     totalItems,
     handlePaginate,
-    filters,
-    updateFilter,
     searchText,
     handleSearch,
     handleResetSearch,
-    handleResetFilters,
     sortConfig,
     handleSort,
     selectedRowKeys,
@@ -112,8 +113,6 @@ const TableList = ({ data, isLoading, refetch }: Props) => {
         onSearchClear={handleResetSearch}
         onSearchChange={handleSearch}
         filters={filters}
-        updateFilter={updateFilter}
-        resetFilter={handleResetFilters}
         selectedUsers={selectedRowKeys}
         onDeleteGroup={() => handleDeleteGroup(selectedRowKeys)}
         cleanRowsSelected={handleCleanRowsSelected}
