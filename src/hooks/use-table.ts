@@ -100,7 +100,7 @@ export function useTable<T extends AnyObject>(
 
   function applyFilters() {
     const searchTermLower = searchText.toLowerCase().trim();
-
+    const excludeKeys = ["nat", "lat", "lng"];
     return (
       sortedData
         .filter((item) => {
@@ -117,9 +117,11 @@ export function useTable<T extends AnyObject>(
         })
         // global search after running filters
         .filter((item) =>
-          Object.values(item).some(
-            (value) =>
-              value && String(value).toLowerCase().includes(searchTermLower)
+          Object.entries(item).some(
+            ([key, value]) =>
+              !excludeKeys.includes(key) &&
+              value &&
+              String(value).toLowerCase().includes(searchTermLower)
           )
         )
     );

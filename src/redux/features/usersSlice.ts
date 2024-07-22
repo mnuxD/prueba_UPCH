@@ -32,12 +32,63 @@ export const getUsers = createAsyncThunk<
         phone: user.phone || "",
         email: user.email || "",
         country: user.location.country || "",
-        nat: user.nat || ""
+        nat: user.nat || "",
+        lat: parseFloat(user.location.coordinates.latitude) || 0,
+        lng: parseFloat(user.location.coordinates.longitude) || 0
       };
     }) || [];
 
   return customData;
 });
+
+export const getUserById = createAsyncThunk<UserType, { id: string }>(
+  "users/getUserById",
+  async ({ id }) => {
+    const response = await apiClient.get<UserList>(`/`);
+    const user = response.data.results[0];
+
+    // forced error
+    if (id === "ana.gallardo@example.com") {
+      throw new Error();
+    }
+
+    const customUser = {
+      name: `${user.name.first} ${user.name.last}` || "",
+      photo: user.picture.thumbnail || "",
+      gender: user.gender || "",
+      address:
+        `${user.location.street.name} ${user.location.street.number}` || "",
+      phone: user.phone || "",
+      email: user.email || "",
+      country: user.location.country || "",
+      nat: user.nat || "",
+      lat: parseFloat(user.location.coordinates.latitude) || 0,
+      lng: parseFloat(user.location.coordinates.longitude) || 0
+    };
+
+    return customUser;
+  }
+);
+
+export const createUser = createAsyncThunk<UserType, { user: UserType }>(
+  "users/createUser",
+  async ({ user }) => {
+    // fake api to simulate
+    await apiClient.get<UserList>(
+      `/?${buildQueryParams({
+        results: 200,
+        seed: "UPCH"
+      })}&noinfo`
+    );
+
+    // forced error
+    if (user.email === "manuelbaellavidal@gmail.com") {
+      throw new Error();
+    }
+
+    return user;
+  }
+);
 
 export const updateUser = createAsyncThunk<UserType, { user: UserType }>(
   "users/updateUser",
@@ -81,8 +132,11 @@ export const deleteUser = createAsyncThunk(
 
 interface UsersState {
   users: UserType[];
+  user: UserType | null;
   loading: boolean;
   error: string | null;
+  createLoading: boolean;
+  createError: string | null;
   updateLoading: boolean;
   updateError: string | null;
   deleteLoading: boolean;
@@ -94,8 +148,11 @@ interface UsersState {
 
 const initialState: UsersState = {
   users: [],
+  user: null,
   loading: false,
   error: null,
+  createLoading: false,
+  createError: null,
   updateLoading: false,
   updateError: null,
   deleteLoading: false,
@@ -112,6 +169,9 @@ export const usersSlice = createSlice({
   reducers: {
     setFilters: (state, action) => {
       state.filters = action.payload;
+    },
+    cleanUserData: (state, action) => {
+      state.user = null;
     }
   },
   extraReducers: (builder) => {
@@ -128,6 +188,31 @@ export const usersSlice = createSlice({
       .addCase(getUsers.rejected, (state, action) => {
         state.loading = false;
         state.error = action.error.message || "Failed to get users";
+      })
+      // Get User by Id
+      .addCase(getUserById.pending, (state) => {
+        state.loading = true;
+        state.error = null;
+      })
+      .addCase(getUserById.fulfilled, (state, action) => {
+        state.user = action.payload;
+        state.loading = false;
+      })
+      .addCase(getUserById.rejected, (state, action) => {
+        state.loading = false;
+        state.error = action.error.message || "Failed to get user by id";
+      })
+      // Create User
+      .addCase(createUser.pending, (state) => {
+        state.createLoading = true;
+        state.createError = null;
+      })
+      .addCase(createUser.fulfilled, (state, action) => {
+        state.createLoading = false;
+      })
+      .addCase(createUser.rejected, (state, action) => {
+        state.createLoading = false;
+        state.createError = action.error.message || "Failed to create user";
       })
       // Update User
       .addCase(updateUser.pending, (state) => {
@@ -156,6 +241,6 @@ export const usersSlice = createSlice({
   }
 });
 
-export const { setFilters } = usersSlice.actions;
+export const { setFilters, cleanUserData } = usersSlice.actions;
 
 export default usersSlice.reducer;

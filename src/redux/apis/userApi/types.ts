@@ -7,6 +7,8 @@ export interface UserType {
   email: string;
   country: string;
   nat: string;
+  lat: number;
+  lng: number;
 }
 
 export interface UserList {

@@ -1,8 +1,5 @@
 import React, { useState } from "react";
 import { Button, Toast } from "react-bootstrap";
-import "./styles.css";
-
-import "bootstrap/dist/css/bootstrap.min.css";
 import SelectWithSearch from "../../../../components/SelectWithShare/SelectWithShare";
 import { countriesData } from "../../../../constants/countries";
 import { gendersData } from "../../../../constants/genders";
@@ -11,6 +8,8 @@ import { useModal } from "../../../../hooks/use-modal";
 import { UserType } from "../../../../redux/apis/userApi/types";
 import { useDispatch } from "react-redux";
 import { setFilters } from "../../../../redux/features/usersSlice";
+import "./styles.css";
+import { useNavigate } from "react-router-dom";
 
 interface Props {
   data: UserType[];
@@ -34,6 +33,7 @@ const Header = ({
   cleanRowsSelected
 }: Props) => {
   const dispatch = useDispatch();
+  const navigate = useNavigate();
   const [showToast, setShowToast] = useState(false);
   const [dynamicFilters, setDynamicFilters] = useState(filters);
   const selectedUsersCount = selectedUsers.length;
@@ -44,6 +44,10 @@ const Header = ({
   const isFilterEmpty = Object.keys(dynamicFilters).length === 0;
 
   const toggleShowToast = () => setShowToast(!showToast);
+
+  const handleCreateUser = () => {
+    navigate("/user/create");
+  };
 
   const handleUpdateFilter = () => {
     dispatch(setFilters(dynamicFilters));
@@ -160,22 +164,32 @@ const Header = ({
           </div>
         </Toast.Body>
       </Toast>
-      <div className="search-input">
-        <input
-          type="text"
-          className="form-control"
-          placeholder="Buscar"
-          value={searchText}
-          onChange={(e) => handleChangeSearchText(e.target.value)}
-        />
-        {searchText ? (
-          <i
-            onClick={onSearchClear}
-            className="search-icon bi bi-x-lg pointer-icon"
-          ></i>
-        ) : (
-          <i className="search-icon bi bi-search"></i>
-        )}
+      <div className="d-flex w-100 gap-3 justify-content-between">
+        <div className="search-input">
+          <input
+            type="text"
+            className="form-control"
+            placeholder="Buscar"
+            value={searchText}
+            onChange={(e) => handleChangeSearchText(e.target.value)}
+          />
+          {searchText ? (
+            <i
+              onClick={onSearchClear}
+              className="search-icon bi bi-x-lg pointer-icon"
+            ></i>
+          ) : (
+            <i className="search-icon bi bi-search"></i>
+          )}
+        </div>
+        <Button
+          variant="primary"
+          size="sm"
+          className="toast__button"
+          onClick={handleCreateUser}
+        >
+          <i className="bi bi-person-add"></i> Nuevo usuario
+        </Button>
       </div>
     </div>
   );

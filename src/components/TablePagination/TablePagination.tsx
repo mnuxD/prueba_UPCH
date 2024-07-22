@@ -66,6 +66,7 @@ const TablePagination = ({
         <select
           onChange={(e) => {
             setPageSize(+e.target.value);
+            handlePaginate(1);
           }}
           className="custom-select custom-select-lg"
         >

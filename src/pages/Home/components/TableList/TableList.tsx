@@ -11,7 +11,7 @@ import { useDeleteUser } from "../../../../redux/hooks/userHooks";
 import "./styles.css";
 import { useSelector } from "react-redux";
 import { RootState } from "../../../../redux/store";
-
+import { useNavigate } from "react-router-dom";
 interface Props {
   data: UserType[];
   isLoading: boolean;
@@ -19,6 +19,8 @@ interface Props {
 }
 
 const TableList = ({ data, isLoading, refetch }: Props) => {
+  const navigate = useNavigate();
+
   const [pageSize, setPageSize] = useState(10);
   const [userToDelete, setUserToDelete] = useState("");
   const { deleteUser } = useDeleteUser();
@@ -49,8 +51,9 @@ const TableList = ({ data, isLoading, refetch }: Props) => {
     setUserToDelete("");
   };
 
-  const onEditItem = (id: string) => {
-    console.log(id);
+  const onEditItem = (email: string) => {
+    const encodedEmail = encodeURIComponent(email);
+    navigate(`/user/${encodedEmail}/edit`);
   };
 
   const handleDeleteGroup = async (selectedUsers: string[]): Promise<void> => {
