@@ -40,14 +40,17 @@ export const getColumns = ({
           variant="outline-primary"
           size="sm"
           className="p-1"
+          title="Editar usuario"
           onClick={() => onEditItem(user.email)}
         >
           <i className="bi bi-pencil"></i>
         </Button>
+
         <Button
           variant="outline-danger"
           size="sm"
           className="p-1"
+          title="Eliminar usuario"
           onClick={() => onDeleteItem(user.email)}
         >
           <i className="bi bi-trash3"></i>

@@ -27,7 +27,11 @@ const CustomTable = ({ data, columns }: Props) => {
                 onClick={() =>
                   col?.onHeaderCell && col.onHeaderCell(col.dataIndex)
                 }
-                style={{ width: col.width, background: "#d3dbdb82" }}
+                style={{
+                  width: col.width,
+                  background: "#d3dbdb",
+                  zIndex: 1
+                }}
                 key={col.key}
               >
                 {col.title}

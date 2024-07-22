@@ -3,9 +3,10 @@ import "./styles.css";
 import TableList from "./components/TableList/TableList";
 import { useGetUsersQuery } from "../../redux/apis/userApi";
 import { UserType } from "../../types";
+import LoadingComponent from "../../components/LoadingComponent/LoadingComponent";
 
 const HomePage = () => {
-  const { data, isLoading } = useGetUsersQuery({});
+  const { data, isLoading, isFetching, refetch } = useGetUsersQuery({});
 
   const customData: UserType[] =
     data?.results.map((user) => {
@@ -26,10 +27,14 @@ const HomePage = () => {
     <main className="main-container">
       <div className="container content">
         <h2>Mi tabla</h2>
-        {isLoading ? (
-          "Cargando"
+        {isLoading || isFetching ? (
+          <LoadingComponent />
         ) : (
-          <TableList isLoading={isLoading} data={customData} />
+          <TableList
+            isLoading={isLoading}
+            data={customData}
+            refetch={refetch}
+          />
         )}
       </div>
     </main>

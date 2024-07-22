@@ -1,0 +1,32 @@
+.customContent {
+  border-radius: 1rem;
+}
+
+.successHeader {
+  border: 0.25rem solid green;
+}
+.errorHeader {
+  border: 0.25rem solid red;
+}
+.alertHeader {
+  border: 0.25rem solid yellow;
+}
+
+.successHeader,
+.errorHeader,
+.alertHeader {
+  border-radius: 1rem;
+}
+
+.customIcon {
+  font-size: 2rem;
+}
+
+.titleContainer {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+}
+.customTitle {
+  margin: 0rem;
+}

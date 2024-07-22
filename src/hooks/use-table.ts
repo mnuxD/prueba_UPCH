@@ -1,4 +1,5 @@
 import { useState, useEffect, useMemo } from "react";
+import { UserType } from "../types";
 
 interface AnyObject {
   [key: string]: any;
@@ -15,13 +16,17 @@ export function useTable<T extends AnyObject>(
    * Handle row selection
    */
   const [selectedRowKeys, setSelectedRowKeys] = useState<string[]>([]);
-  const handleRowSelect = (recordKey: string) => {
-    const selectedKeys = [...selectedRowKeys];
-    if (selectedKeys.includes(recordKey)) {
-      setSelectedRowKeys(selectedKeys.filter((key) => key !== recordKey));
+  const handleRowSelect = (record: string) => {
+    const customSelectedRows = [...selectedRowKeys];
+
+    if (customSelectedRows.some((e) => e === record)) {
+      setSelectedRowKeys(customSelectedRows.filter((row) => row !== record));
     } else {
-      setSelectedRowKeys([...selectedKeys, recordKey]);
+      setSelectedRowKeys([...customSelectedRows, record]);
     }
+  };
+  const handleCleanRowsSelected = () => {
+    setSelectedRowKeys([]);
   };
 
   /*
@@ -169,6 +174,7 @@ export function useTable<T extends AnyObject>(
     handleSort,
     // row selection
     selectedRowKeys,
+    handleCleanRowsSelected,
     handleRowSelect,
     // searching
     searchText,

@@ -6,26 +6,41 @@ import "bootstrap/dist/css/bootstrap.min.css";
 import SelectWithSearch from "../../../../components/SelectWithShare/SelectWithShare";
 import { countriesData } from "../../../../constants/countries";
 import { gendersData } from "../../../../constants/genders";
+import ModalConfirmation from "../../../../components/ModalConfirmation/ModalConfirmation";
+import { useModal } from "../../../../hooks/use-modal";
+import { UserType } from "../../../../types";
 
 interface Props {
+  data: UserType[];
   searchText: string;
   onSearchClear: () => void;
   onSearchChange: (searchValue: string) => void;
   filters: Record<string, any>;
   updateFilter: (filters: Record<string, any>) => void;
   resetFilter: () => void;
+  selectedUsers: string[];
+  onDeleteGroup: () => void;
+  cleanRowsSelected: () => void;
 }
 
 const Header = ({
+  data,
   searchText,
   onSearchClear,
   onSearchChange,
   filters,
   updateFilter,
-  resetFilter
+  resetFilter,
+  selectedUsers,
+  onDeleteGroup,
+  cleanRowsSelected
 }: Props) => {
   const [showToast, setShowToast] = useState(false);
   const [dynamicFilters, setDynamicFilters] = useState(filters);
+  const selectedUsersCount = selectedUsers.length;
+
+  const { openModal: openDeleteGroupModal, closeModal: closeDeleteGroupModal } =
+    useModal("deleteGroup");
 
   const isFilterEmpty = Object.keys(dynamicFilters).length === 0;
 
@@ -59,31 +74,63 @@ const Header = ({
         >
           <i className="bi bi-sliders"></i> Filtros
         </Button>
-        <Button
-          variant="outline-primary"
-          className="buttonsContainer__button"
-          size="sm"
-        >
-          <i className="bi bi-pencil"></i> Editar
-        </Button>
-        <Button
-          variant="outline-danger"
-          className="buttonsContainer__button"
-          size="sm"
-        >
-          <i className="bi bi-trash3"></i> Eliminar
-        </Button>
+        {selectedUsersCount > 0 && (
+          <Button
+            variant="outline-danger"
+            className="buttonsContainer__button"
+            size="sm"
+            onClick={openDeleteGroupModal}
+          >
+            <i className="bi bi-trash3"></i> Eliminar {selectedUsersCount}{" "}
+            usuario
+            {selectedUsersCount > 1 && "s"}
+          </Button>
+        )}
+        <ModalConfirmation
+          title={`Eliminar usuarios seleccionados`}
+          body={
+            <div>
+              <p>{`¿Está seguro que desea eliminar ${selectedUsersCount} usuario${
+                selectedUsersCount > 0 && "s"
+              }?`}</p>
+              <ul>
+                {data
+                  .filter((user) =>
+                    selectedUsers.some((email) => user.email === email)
+                  )
+                  .map((e) => (
+                    <li key={e.email}>{e.name}</li>
+                  ))}
+              </ul>
+            </div>
+          }
+          id="deleteGroup"
+          onClose={closeDeleteGroupModal}
+          onConfirm={onDeleteGroup}
+        />
+        {selectedUsersCount > 0 && (
+          <Button
+            variant="outline-secondary"
+            className="buttonsContainer__button"
+            size="sm"
+            onClick={cleanRowsSelected}
+          >
+            <i className="bi bi-x-lg"></i> Limpiar selección
+          </Button>
+        )}
       </div>
       <Toast show={showToast} onClose={toggleShowToast} className="toast">
         <Toast.Body>
           <div className="toast__body">
             <SelectWithSearch
+              id="dropdownNat"
               options={countriesData}
               title="NACIONALIDAD"
               handleChange={handleChangeCountry}
               selectedOption={dynamicFilters?.nat}
             />
             <SelectWithSearch
+              id="dropdownGender"
               options={gendersData}
               title="GÉNERO"
               handleChange={handleChangeGender}
