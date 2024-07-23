@@ -17,8 +17,8 @@ const ModalConfirmation = ({
   body,
   onConfirm,
   onClose,
-  errorMessage = "Ha ocurrido un error",
-  successMessage = "Operación exitosa"
+  errorMessage,
+  successMessage
 }: Props) => {
   const [isLoading, setIsLoading] = useState(false);
 

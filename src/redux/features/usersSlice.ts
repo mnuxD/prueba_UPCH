@@ -25,7 +25,7 @@ export const getUsers = createAsyncThunk<
     response.data?.results.map((user) => {
       return {
         name: `${user.name.first} ${user.name.last}` || "",
-        photo: user.picture.thumbnail || "",
+        photo: user.picture.large || "",
         gender: user.gender || "",
         address:
           `${user.location.street.name} ${user.location.street.number}` || "",
@@ -54,7 +54,7 @@ export const getUserById = createAsyncThunk<UserType, { id: string }>(
 
     const customUser = {
       name: `${user.name.first} ${user.name.last}` || "",
-      photo: user.picture.thumbnail || "",
+      photo: user.picture.large || "",
       gender: user.gender || "",
       address:
         `${user.location.street.name} ${user.location.street.number}` || "",
@@ -102,7 +102,7 @@ export const updateUser = createAsyncThunk<UserType, { user: UserType }>(
     );
 
     // forced error
-    if (user.email === "ana.gallardo@example.com") {
+    if (user.email === "manuelbaellavidal@gmail.com") {
       throw new Error();
     }
 

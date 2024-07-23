@@ -45,7 +45,7 @@ export const useGetUserById = (id: string) => {
   return { data: user, isLoading: loading, isError: error, refetch };
 };
 
-export const useCreateUser = (data: UserType) => {
+export const useCreateUser = () => {
   const dispatch = useDispatch<AppDispatch>();
   const loading = useSelector((state: RootState) => state.users.createLoading);
   const error = useSelector((state: RootState) => state.users.createError);

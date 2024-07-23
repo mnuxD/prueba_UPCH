@@ -1,13 +1,15 @@
 import React from "react";
-import { useParams } from "react-router-dom";
 import "./styles.css";
 import CreateEditUser from "../components/CreateEditUser";
+import HeaderPage from "../../../components/HeaderPage/HeaderPage";
 
 const CreateUserPage = () => {
   return (
-    <main className="main-container container">
-      <h2>Crear usuario</h2>
-      <CreateEditUser />
+    <main className="main-container">
+      <div className="container">
+        <HeaderPage title="Crear Usuario" previousUrl="/" />
+        <CreateEditUser />
+      </div>
     </main>
   );
 };

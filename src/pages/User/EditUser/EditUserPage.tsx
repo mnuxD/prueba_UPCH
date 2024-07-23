@@ -5,6 +5,7 @@ import CreateEditUser from "../components/CreateEditUser";
 import { useGetUserById } from "../../../redux/hooks/userHooks";
 import LoadingComponent from "../../../components/LoadingComponent/LoadingComponent";
 import ErrorComponent from "../../../components/ErrorComponent/ErrorComponent";
+import HeaderPage from "../../../components/HeaderPage/HeaderPage";
 
 const EditUserPage = () => {
   const { id } = useParams();
@@ -12,15 +13,17 @@ const EditUserPage = () => {
   const { data, isLoading, isError } = useGetUserById(id || "");
 
   return (
-    <main className="main-container container">
-      <h2>Editar usuario</h2>
-      {isLoading ? (
-        <LoadingComponent />
-      ) : isError ? (
-        <ErrorComponent />
-      ) : (
-        data && <CreateEditUser data={data} slug={data.email} />
-      )}
+    <main className="main-container">
+      <div className="container">
+        <HeaderPage title="Editar Usuario" previousUrl="/" />
+        {isLoading ? (
+          <LoadingComponent />
+        ) : isError ? (
+          <ErrorComponent />
+        ) : (
+          data && <CreateEditUser data={data} />
+        )}
+      </div>
     </main>
   );
 };

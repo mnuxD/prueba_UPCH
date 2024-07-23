@@ -1,0 +1,6 @@
+.customNavbar {
+  background-color: rgba(241, 241, 241, 0.8);
+  backdrop-filter: blur(2px);
+  z-index: 10;
+  border-radius: 10px;
+}

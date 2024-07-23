@@ -1,24 +1,30 @@
-import { useEffect, useRef, useState } from "react";
+import { useState } from "react";
 import { OptionType } from "../../types";
-import "./styles.css";
 import { useDropdown } from "../../hooks/use-dropdown";
+import "./styles.css";
 
 interface Props {
   id: string;
   options: OptionType[];
   title: string;
   className?: string;
+  classNameButton?: string;
   handleChange: (value: string) => void;
   selectedOption: string;
+  label?: string;
+  error?: string;
 }
 
 const SelectWithSearch = ({
   id,
   className,
+  classNameButton,
   options = [],
   title = "",
   handleChange,
-  selectedOption
+  selectedOption,
+  label,
+  error
 }: Props) => {
   const [searchTerm, setSearchTerm] = useState("");
 
@@ -33,17 +39,20 @@ const SelectWithSearch = ({
 
   return (
     <div className={`dropdown ${className}`}>
+      {label && <label className="form-label">{label}</label>}
       <button
-        className="btn btn-light dropdown-toggle text-secondary buttonDropdown"
+        className={`btn btn-light dropdown-toggle text-secondary buttonDropdown ${classNameButton}`}
         type="button"
         aria-expanded={isOpen}
         onClick={(e) => {
-          e.stopPropagation(); // Prevenir la propagación del evento
+          e.stopPropagation(); // Prevent event propagation
           toggleDropdown();
         }}
+        style={{ display: "flex" }}
       >
         {selectedOptionLabel ? selectedOptionLabel : title}
       </button>
+      {error && <label className="text-danger">{error}</label>}
       {isOpen && (
         <ul
           className="dropdown-menu show dropdownCard"
