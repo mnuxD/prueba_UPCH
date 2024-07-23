@@ -24,6 +24,9 @@ export const enLocale = {
     close: "Close",
     accept: "Accept",
 
+    // No Results
+    noResults: "No results",
+
     // Table Pagination
     rowsPerPage: "Rows per page",
 
@@ -97,6 +100,10 @@ export const enLocale = {
     userLocationIsRequired: "User location is required",
     userLocation: "User Location",
     userInfo: "User Information",
-    userPhoto: "User Photo"
+    userPhoto: "User Photo",
+
+    //Not Found
+    pageNotFound: "Page Not Found",
+    messageNotFound: "Sorry, the page you are looking for does not exist."
   }
 };

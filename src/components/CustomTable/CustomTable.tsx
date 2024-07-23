@@ -1,5 +1,6 @@
 import React from "react";
 import { UserType } from "../../redux/apis/userApi/types";
+import NoResults from "../NoResults/NoResults";
 import "./styles.css";
 
 interface Props {
@@ -52,6 +53,7 @@ const CustomTable = ({ data, columns }: Props) => {
           ))}
         </tbody>
       </table>
+      {data?.length === 0 && <NoResults />}
     </div>
   );
 };

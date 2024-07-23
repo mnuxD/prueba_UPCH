@@ -2,8 +2,8 @@ import React from "react";
 import CustomSelect from "../CustomSelect/CustomSelect";
 import { languages } from "../../constants/languages";
 import { useLanguage } from "../../hooks/use-language";
-import "./styles.css";
 import { useTranslation } from "react-i18next";
+import "./styles.css";
 
 const Toolbar = () => {
   const { language, handleChangeLanguage } = useLanguage();

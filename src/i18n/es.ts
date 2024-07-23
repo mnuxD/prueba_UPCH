@@ -24,6 +24,9 @@ export const esLocale = {
     close: "Cerrar",
     accept: "Aceptar",
 
+    // No Results
+    noResults: "No hay resultados",
+
     // Table Pagination
     rowsPerPage: "Filas por página",
 
@@ -97,6 +100,10 @@ export const esLocale = {
     userLocationIsRequired: "Se requiere la ubicación del usuario",
     userLocation: "Ubicación del Usuario",
     userInfo: "Información del Usuario",
-    userPhoto: "Foto del Usuario"
+    userPhoto: "Foto del Usuario",
+
+    //  Not Found
+    pageNotFound: "Página No Encontrada",
+    messageNotFound: "Lo siento, la página que estás buscando no existe."
   }
 };
