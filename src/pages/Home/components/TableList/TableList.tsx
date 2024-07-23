@@ -52,7 +52,7 @@ const TableList = ({ data, isLoading, refetch }: Props) => {
   };
 
   const onEditItem = (email: string) => {
-    const encodedEmail = encodeURIComponent(email);
+    const encodedEmail = email.replace(/[@./\-_]/g, "");
     navigate(`/user/${encodedEmail}/edit`);
   };
 
