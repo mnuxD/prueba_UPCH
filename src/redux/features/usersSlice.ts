@@ -48,7 +48,7 @@ export const getUserById = createAsyncThunk<UserType, { id: string }>(
     const user = response.data.results[0];
 
     // forced error
-    if (id === "ana.gallardo@example.com") {
+    if (user.nat === "US") {
       throw new Error();
     }
 

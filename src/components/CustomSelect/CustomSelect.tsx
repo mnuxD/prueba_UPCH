@@ -1,8 +1,8 @@
 import { useState } from "react";
 import { OptionType } from "../../types";
 import { useDropdown } from "../../hooks/use-dropdown";
-import "./styles.css";
 import { useTranslation } from "react-i18next";
+import "./styles.css";
 
 interface Props {
   id: string;
@@ -72,7 +72,7 @@ const CustomSelect = ({
               <input
                 type="text"
                 className="form-control"
-                placeholder="Buscar..."
+                placeholder={`${t("search")}...`}
                 onChange={(e) => setSearchTerm(e.target.value)}
                 value={searchTerm}
               />
