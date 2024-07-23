@@ -34,7 +34,7 @@ const ModalAlert = ({ id, message, type }: Props) => {
     <div className="modal fade" id={id} aria-labelledby={id} aria-hidden="true">
       <div className="modal-dialog">
         <div className="modal-content customContent">
-          <div className={`modal-header ${customHeader()}`}>
+          <div className={`${customHeader()}`}>
             <div className="modal-title fs-5 titleContainer" id={id}>
               {dynamicIcon()} <h4 className="customTitle">{messageSend()}</h4>
             </div>

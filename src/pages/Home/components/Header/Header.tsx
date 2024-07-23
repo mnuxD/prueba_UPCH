@@ -10,6 +10,7 @@ import { useDispatch } from "react-redux";
 import { setFilters } from "../../../../redux/features/usersSlice";
 import "./styles.css";
 import { useNavigate } from "react-router-dom";
+import useDocumentTitle from "../../../../hooks/use-DocumentTitle";
 
 interface Props {
   data: UserType[];
@@ -37,6 +38,8 @@ const Header = ({
   const [showToast, setShowToast] = useState(false);
   const [dynamicFilters, setDynamicFilters] = useState(filters);
   const selectedUsersCount = selectedUsers.length;
+
+  useDocumentTitle();
 
   const { openModal: openDeleteGroupModal, closeModal: closeDeleteGroupModal } =
     useModal("deleteGroup");

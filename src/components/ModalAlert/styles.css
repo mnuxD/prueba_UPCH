@@ -1,5 +1,5 @@
 .customContent {
-  border-radius: 1rem;
+  border-radius: 1.1rem !important;
 }
 
 .successHeader {
@@ -16,6 +16,10 @@
 .errorHeader,
 .alertHeader {
   border-radius: 1rem;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 0.5rem;
 }
 
 .customIcon {
@@ -25,8 +29,12 @@
 .titleContainer {
   display: flex;
   align-items: center;
+  border-radius: 0.25rem;
   gap: 1rem;
 }
 .customTitle {
   margin: 0rem;
+}
+.buttonModal {
+  cursor: pointer;
 }

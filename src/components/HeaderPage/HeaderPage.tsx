@@ -1,7 +1,8 @@
-import React from "react";
+import React, { useEffect } from "react";
 import "./styles.css";
 import { Button } from "react-bootstrap";
 import { useNavigate } from "react-router-dom";
+import useDocumentTitle from "../../hooks/use-DocumentTitle";
 
 interface Props {
   title: string;
@@ -11,6 +12,8 @@ interface Props {
 const HeaderPage = ({ title, previousUrl }: Props) => {
   const navigate = useNavigate();
 
+  useDocumentTitle(title);
+
   const goBack = () => {
     if (previousUrl) {
       navigate(previousUrl);
@@ -18,6 +21,7 @@ const HeaderPage = ({ title, previousUrl }: Props) => {
       navigate("/");
     }
   };
+
   return (
     <div className="d-flex gap-3 align-items-center mb-3">
       <Button onClick={goBack}>
