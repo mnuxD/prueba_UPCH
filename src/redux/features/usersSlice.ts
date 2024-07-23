@@ -13,9 +13,9 @@ export const getUsers = createAsyncThunk<
 
   const response = await apiClient.get<UserList>(
     `/?${buildQueryParams({
+      // seed: "UPCH", // conflicts with gender param
       exc: "login,dob,registered",
       results: dynamicResultsCount(nat, gender), // generate dynamic result count depending on filters to simulate different counts
-      seed: "UPCH",
       nat,
       gender
     })}&noinfo`

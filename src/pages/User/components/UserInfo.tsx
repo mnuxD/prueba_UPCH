@@ -58,7 +58,9 @@ const UserInfo = () => {
           classNameButton="bg-white text-black w-100"
           className="mb-3 col-lg-6 col-md-6"
           id="dropdownNat"
-          options={countriesData}
+          options={countriesData.map((e) => {
+            return { label: `${e.flag} ${e.label}`, value: e.value };
+          })}
           title="Nacionalidad"
           handleChange={handleChangeCountry}
           selectedOption={natWatcher}

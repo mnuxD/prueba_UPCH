@@ -35,11 +35,10 @@ const Header = ({
 }: Props) => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
+  useDocumentTitle();
   const [showToast, setShowToast] = useState(false);
   const [dynamicFilters, setDynamicFilters] = useState(filters);
   const selectedUsersCount = selectedUsers.length;
-
-  useDocumentTitle();
 
   const { openModal: openDeleteGroupModal, closeModal: closeDeleteGroupModal } =
     useModal("deleteGroup");
@@ -134,7 +133,9 @@ const Header = ({
           <div className="toast__body">
             <SelectWithSearch
               id="dropdownNat"
-              options={countriesData}
+              options={countriesData.map((e) => {
+                return { label: `${e.flag} ${e.label}`, value: e.value };
+              })}
               title="NACIONALIDAD"
               handleChange={handleChangeCountry}
               selectedOption={dynamicFilters?.nat}
