@@ -12,6 +12,7 @@ import "./styles.css";
 import { useSelector } from "react-redux";
 import { RootState } from "../../../../redux/store";
 import { useNavigate } from "react-router-dom";
+import { useTranslation } from "react-i18next";
 interface Props {
   data: UserType[];
   isLoading: boolean;
@@ -20,15 +21,13 @@ interface Props {
 
 const TableList = ({ data, isLoading, refetch }: Props) => {
   const navigate = useNavigate();
-
+  const { t } = useTranslation();
   const [pageSize, setPageSize] = useState(10);
   const [userToDelete, setUserToDelete] = useState("");
+  const [nameUserToDelete, setNameUserToDelete] = useState("");
   const { deleteUser } = useDeleteUser();
 
   const filters = useSelector((state: RootState) => state.users.filters);
-
-  const nameUserToDelete =
-    data.find((e) => e.email === userToDelete)?.name || "";
 
   const {
     openModal: handleOpenDeleteModal,
@@ -37,13 +36,14 @@ const TableList = ({ data, isLoading, refetch }: Props) => {
 
   const onDeleteItem = async (id: string) => {
     setUserToDelete(id);
+    setNameUserToDelete(data.find((e) => e.email === id)?.name || "");
     handleOpenDeleteModal();
   };
 
   const handleDeleteItem = async () => {
-    const emailToEdit = userToDelete;
+    const emailToDelete = userToDelete;
     try {
-      await deleteUser(emailToEdit);
+      await deleteUser(emailToDelete);
       refetch();
     } catch (error) {
       throw error;
@@ -95,7 +95,8 @@ const TableList = ({ data, isLoading, refetch }: Props) => {
         onChecked: handleRowSelect,
         onHeaderCellClick,
         onDeleteItem,
-        onEditItem
+        onEditItem,
+        t
       }),
     // eslint-disable-next-line react-hooks/exhaustive-deps
     [
@@ -132,8 +133,10 @@ const TableList = ({ data, isLoading, refetch }: Props) => {
         id="deleteItem"
         onClose={handleCloseDeleteModal}
         onConfirm={handleDeleteItem}
-        title="Eliminar Usuario"
-        body={`¿Desea eliminar a ${nameUserToDelete} permanentemente?`}
+        title={t("deleteUser")}
+        body={`${t("sureDeleteUser")} ${nameUserToDelete || t("thisUser")} ${t(
+          "permanently"
+        )}?`}
       />
     </div>
   );

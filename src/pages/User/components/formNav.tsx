@@ -1,5 +1,6 @@
 import { Button } from "react-bootstrap";
 import "./styles.css";
+import { useTranslation } from "react-i18next";
 
 export const formParts = {
   info: "info",
@@ -9,15 +10,15 @@ export const formParts = {
 
 export const menuItems = [
   {
-    label: "Información",
+    label: "information",
     value: formParts.info
   },
   {
-    label: "Imágenes",
+    label: "photo",
     value: formParts.media
   },
   {
-    label: "Ubicación",
+    label: "location",
     value: formParts.coordinates
   }
 ];
@@ -28,6 +29,7 @@ interface Props {
 }
 
 export default function FormNav({ isLoading, isCreate }: Props) {
+  const { t } = useTranslation();
   return (
     <div className="position-sticky top-0 flex-shrink-0 customNavbar">
       <nav id="navbar-example2" className="navbar px-3 mb-3">
@@ -35,7 +37,7 @@ export default function FormNav({ isLoading, isCreate }: Props) {
           {menuItems.map((tab, idx) => (
             <li className="nav-item" key={tab.value}>
               <a className="nav-link" href={`#${tab.value}`}>
-                {tab.label}
+                {t(tab.label)}
               </a>
             </li>
           ))}
@@ -51,7 +53,7 @@ export default function FormNav({ isLoading, isCreate }: Props) {
               </div>{" "}
             </>
           )}
-          {isCreate ? "Crear usuario" : "Editar Usuario"}
+          {isCreate ? t("createUser") : t("editUser")}
         </Button>
       </nav>
     </div>

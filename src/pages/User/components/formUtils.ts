@@ -17,14 +17,14 @@ export function defaultValues(user?: UserType) {
 }
 
 const messages = {
-  userNameIsRequired: "Debe ingresar el nombre",
-  userGenderIsRequired: "Debe ingresar el género",
-  userPhoneIsRequired: "Debe ingresar el teléfono",
-  userEmailIsRequired: "Debe ingresar el email",
-  userEmailInvalid: "El email no es válido",
-  userNatIsRequired: "Debe ingresar la nacionalidad",
-  userPhotoIsRequired: "Debe ingresar una foto",
-  userLocationIsRequired: "Debe ingresar una ubicación"
+  userNameIsRequired: "userNameIsRequired",
+  userGenderIsRequired: "userGenderIsRequired",
+  userPhoneIsRequired: "userPhoneIsRequired",
+  userEmailIsRequired: "userEmailIsRequired",
+  userEmailInvalid: "userEmailInvalid",
+  userNatIsRequired: "userNatIsRequired",
+  userPhotoIsRequired: "userPhotoIsRequired",
+  userLocationIsRequired: "userLocationIsRequired"
 };
 
 export const userFormSchema = z.object({
@@ -51,7 +51,7 @@ export const userFormSchema = z.object({
     .string({
       required_error: messages.userPhotoIsRequired
     })
-    .min(1, { message: messages.userPhoneIsRequired }),
+    .min(1, { message: messages.userPhotoIsRequired }),
   nat: z
     .string({
       required_error: messages.userNatIsRequired

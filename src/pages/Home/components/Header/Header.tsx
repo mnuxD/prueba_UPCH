@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import { Button, Toast } from "react-bootstrap";
-import SelectWithSearch from "../../../../components/SelectWithShare/SelectWithShare";
+import CustomSelect from "../../../../components/CustomSelect/CustomSelect";
 import { countriesData } from "../../../../constants/countries";
 import { gendersData } from "../../../../constants/genders";
 import ModalConfirmation from "../../../../components/ModalConfirmation/ModalConfirmation";
@@ -8,9 +8,10 @@ import { useModal } from "../../../../hooks/use-modal";
 import { UserType } from "../../../../redux/apis/userApi/types";
 import { useDispatch } from "react-redux";
 import { setFilters } from "../../../../redux/features/usersSlice";
-import "./styles.css";
 import { useNavigate } from "react-router-dom";
 import useDocumentTitle from "../../../../hooks/use-DocumentTitle";
+import "./styles.css";
+import { useTranslation } from "react-i18next";
 
 interface Props {
   data: UserType[];
@@ -35,6 +36,7 @@ const Header = ({
 }: Props) => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
+  const { t } = useTranslation();
   useDocumentTitle();
   const [showToast, setShowToast] = useState(false);
   const [dynamicFilters, setDynamicFilters] = useState(filters);
@@ -81,7 +83,7 @@ const Header = ({
           size="sm"
           onClick={toggleShowToast}
         >
-          <i className="bi bi-sliders"></i> Filtros
+          <i className="bi bi-sliders"></i> {t("filters")}
         </Button>
         {selectedUsersCount > 0 && (
           <Button
@@ -90,16 +92,16 @@ const Header = ({
             size="sm"
             onClick={openDeleteGroupModal}
           >
-            <i className="bi bi-trash3"></i> Eliminar {selectedUsersCount}{" "}
-            usuario
+            <i className="bi bi-trash3"></i> {t("delete")} {selectedUsersCount}{" "}
+            {t("user")}
             {selectedUsersCount > 1 && "s"}
           </Button>
         )}
         <ModalConfirmation
-          title={`Eliminar usuarios seleccionados`}
+          title={t("deleteSelectedUsers")}
           body={
             <div>
-              <p>{`¿Está seguro que desea eliminar ${selectedUsersCount} usuario${
+              <p>{`${t("sureDeleteUsers")} ${selectedUsersCount} ${t("user")}${
                 selectedUsersCount > 0 && "s"
               }?`}</p>
               <ul>
@@ -124,26 +126,30 @@ const Header = ({
             size="sm"
             onClick={cleanRowsSelected}
           >
-            <i className="bi bi-x-lg"></i> Limpiar selección
+            <i className="bi bi-x-lg"></i> {t("cleanSelected")}
           </Button>
         )}
       </div>
       <Toast show={showToast} onClose={toggleShowToast} className="toast">
         <Toast.Body>
           <div className="toast__body">
-            <SelectWithSearch
+            <CustomSelect
+              classNameButton="customSelect"
               id="dropdownNat"
               options={countriesData.map((e) => {
-                return { label: `${e.flag} ${e.label}`, value: e.value };
+                return { label: `${e.flag} ${t(e.label)}`, value: e.value };
               })}
-              title="NACIONALIDAD"
+              title={t("nationality")}
               handleChange={handleChangeCountry}
               selectedOption={dynamicFilters?.nat}
             />
-            <SelectWithSearch
+            <CustomSelect
+              classNameButton="customSelect"
               id="dropdownGender"
-              options={gendersData}
-              title="GÉNERO"
+              options={gendersData.map((e) => {
+                return { label: t(e.label), value: e.value };
+              })}
+              title={t("gender")}
               handleChange={handleChangeGender}
               selectedOption={dynamicFilters?.gender}
             />
@@ -153,7 +159,7 @@ const Header = ({
               className="toast__button"
               onClick={handleUpdateFilter}
             >
-              <i className="bi bi-search"></i> Buscar
+              <i className="bi bi-search"></i> {t("search")}
             </Button>
             {!isFilterEmpty && (
               <Button
@@ -162,7 +168,7 @@ const Header = ({
                 className="toast__button"
                 onClick={handleResetFilter}
               >
-                <i className="bi bi-x-lg"></i> Limpiar
+                <i className="bi bi-x-lg"></i> {t("clean")}
               </Button>
             )}
           </div>
@@ -173,7 +179,7 @@ const Header = ({
           <input
             type="text"
             className="form-control"
-            placeholder="Buscar"
+            placeholder={t("search")}
             value={searchText}
             onChange={(e) => handleChangeSearchText(e.target.value)}
           />
@@ -192,7 +198,7 @@ const Header = ({
           className="toast__button"
           onClick={handleCreateUser}
         >
-          <i className="bi bi-person-add"></i> Nuevo usuario
+          <i className="bi bi-person-add"></i> {t("newUser")}
         </Button>
       </div>
     </div>

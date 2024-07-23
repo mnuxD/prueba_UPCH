@@ -1,5 +1,6 @@
 import React from "react";
 import "./styles.css";
+import { useTranslation } from "react-i18next";
 
 interface Props {
   id: string;
@@ -8,6 +9,7 @@ interface Props {
 }
 
 const ModalAlert = ({ id, message, type }: Props) => {
+  const { t } = useTranslation();
   const dynamicIcon = () => {
     if (type === "success")
       return <i className="bi bi-check-circle text-success customIcon"></i>;
@@ -25,9 +27,9 @@ const ModalAlert = ({ id, message, type }: Props) => {
 
   const messageSend = () => {
     if (message) return message;
-    if (type === "success") return "Operación exitosa";
-    if (type === "error") return "Ha ocurrido un error";
-    return "Mensaje de alerta";
+    if (type === "success") return t("successfulAction");
+    if (type === "error") return t("errorOcurred");
+    return t("alertMessage");
   };
 
   return (

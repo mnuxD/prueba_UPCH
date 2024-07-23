@@ -7,6 +7,7 @@ import {
 import React, { useEffect, useState } from "react";
 import { FieldValues, UseFormReturn } from "react-hook-form";
 import { googleMapsLibraries } from "../../constants/googleMapsLibraries";
+import { useTranslation } from "react-i18next";
 
 interface Props {
   formContext: UseFormReturn<FieldValues, any, undefined>;
@@ -29,7 +30,7 @@ const MapComponent = ({
   lngName
 }: Props) => {
   const [mapRef, setMapRef] = useState<google.maps.Map>();
-
+  const { t } = useTranslation();
   const {
     watch,
     setValue,
@@ -181,7 +182,7 @@ const MapComponent = ({
             >
               <input
                 type="text"
-                placeholder="Buscar lugar..."
+                placeholder={`${t("searchPlace")}...`}
                 style={{
                   boxSizing: `border-box`,
                   width: `100%`,

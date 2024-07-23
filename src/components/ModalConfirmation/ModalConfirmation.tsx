@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import { useModal } from "../../hooks/use-modal";
 import ModalAlert from "../ModalAlert/ModalAlert";
+import { useTranslation } from "react-i18next";
 interface Props {
   id: string;
   title: string;
@@ -21,6 +22,7 @@ const ModalConfirmation = ({
   successMessage
 }: Props) => {
   const [isLoading, setIsLoading] = useState(false);
+  const { t } = useTranslation();
 
   const { openModal: openSuccessModal } = useModal("successModal");
   const { openModal: openErrorModal } = useModal("errorModal");
@@ -70,7 +72,7 @@ const ModalConfirmation = ({
                 data-bs-dismiss="modal"
                 disabled={isLoading}
               >
-                Cerrar
+                {t("close")}
               </button>
               <button
                 type="button"
@@ -88,7 +90,7 @@ const ModalConfirmation = ({
                     </div>{" "}
                   </>
                 )}
-                Aceptar
+                {t("accept")}
               </button>
             </div>
           </div>

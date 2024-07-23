@@ -1,9 +1,6 @@
 import React from "react";
-import {
-  FieldErrors,
-  FieldValues,
-  UseFormRegisterReturn
-} from "react-hook-form";
+import { FieldErrors, FieldValues } from "react-hook-form";
+import { useTranslation } from "react-i18next";
 
 interface InputProps {
   type?: "text" | "number" | "email" | "password" | "tel" | "url" | "date";
@@ -28,6 +25,7 @@ const TextInput: React.FC<InputProps> = ({
   label,
   errors
 }) => {
+  const { t } = useTranslation();
   const handleKeyDown = (event: React.KeyboardEvent<HTMLInputElement>) => {
     if (event.key === "Enter") {
       event.preventDefault();
@@ -46,7 +44,9 @@ const TextInput: React.FC<InputProps> = ({
         onKeyDown={handleKeyDown}
       />
       {errors && errors[name]?.message && (
-        <label className="text-danger">{errors[name]?.message as string}</label>
+        <label className="text-danger">
+          {t(errors[name]?.message as string)}
+        </label>
       )}
     </div>
   );

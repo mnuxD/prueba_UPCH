@@ -1,7 +1,9 @@
 import React from "react";
 import "./styles.css";
+import { useTranslation } from "react-i18next";
 
 const LoadingComponent = () => {
+  const { t } = useTranslation();
   return (
     <div className="loginContainer">
       <div className="customSpiner">
@@ -14,7 +16,7 @@ const LoadingComponent = () => {
         </div>
       </div>
 
-      <h2>Cargando...</h2>
+      <h2>{t("loading")}...</h2>
     </div>
   );
 };

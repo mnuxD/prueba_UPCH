@@ -1,6 +1,7 @@
 import React, { ChangeEvent } from "react";
 import "./styles.css";
 import { FieldValues, UseFormReturn } from "react-hook-form";
+import { useTranslation } from "react-i18next";
 
 interface Props {
   className?: string;
@@ -9,6 +10,7 @@ interface Props {
 }
 
 const ImageInput = ({ className, name, formContext }: Props) => {
+  const { t } = useTranslation();
   const {
     setValue,
     watch,
@@ -32,7 +34,7 @@ const ImageInput = ({ className, name, formContext }: Props) => {
 
   return (
     <div className={`inputContainer ${className}`}>
-      <h4 className="form-label">Sube la foto</h4>
+      <h4 className="form-label">{t("uploadPhoto")}</h4>
       <input type="file" id="formFile" onChange={handleImageChange} />
       <div
         className="image-upload-wrapper"
@@ -45,7 +47,9 @@ const ImageInput = ({ className, name, formContext }: Props) => {
         )}
       </div>
       {errors && errors[name]?.message && (
-        <label className="text-danger">{errors[name]?.message as string}</label>
+        <label className="text-danger">
+          {t(errors[name]?.message as string)}
+        </label>
       )}
     </div>
   );

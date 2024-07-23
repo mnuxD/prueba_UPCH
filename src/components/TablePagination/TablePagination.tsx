@@ -1,6 +1,7 @@
 import React from "react";
 
 import "./styles.css";
+import { useTranslation } from "react-i18next";
 
 interface Props {
   pageSize: number;
@@ -17,6 +18,8 @@ const TablePagination = ({
   currentPage,
   totalItems
 }: Props) => {
+  const { t } = useTranslation();
+
   const totalPages =
     totalItems % pageSize !== 0
       ? Math.ceil(totalItems / pageSize)
@@ -62,7 +65,7 @@ const TablePagination = ({
   return (
     <div className="table-pagination">
       <div className="rowsPage">
-        <label>Filas por página:</label>
+        <label>{t("rowsPerPage")}:</label>
         <select
           onChange={(e) => {
             setPageSize(+e.target.value);

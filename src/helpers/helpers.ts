@@ -22,9 +22,22 @@ export const dynamicResultsCount = (nat: string, gender: string) => {
   if (isStringEmpty(nat) && !isStringEmpty(gender)) return 128;
   if (!isStringEmpty(nat) && isStringEmpty(gender))
     return Math.floor(256 / getRandomInt(5, 20)) + 1;
-  return Math.floor(128 / getRandomInt(5, 20)) + 1; //isStringEmpty(nat) && isStringEmpty(gender)
+  return Math.floor(256 / 2 / getRandomInt(5, 20)) + 1; //isStringEmpty(nat) && isStringEmpty(gender)
 };
 
 export const isString = (value: any) => {
   return typeof value === "string" || value instanceof String;
+};
+
+export const languageApp = () => {
+  const getUserBrowserLanguage = () => {
+    const lang = window.navigator.language;
+
+    if (lang.includes("es")) return "es";
+    if (lang.includes("en")) return "en";
+
+    return "es";
+  };
+
+  return localStorage.getItem("language") || getUserBrowserLanguage();
 };

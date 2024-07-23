@@ -2,20 +2,22 @@ import { useState } from "react";
 import { OptionType } from "../../types";
 import { useDropdown } from "../../hooks/use-dropdown";
 import "./styles.css";
+import { useTranslation } from "react-i18next";
 
 interface Props {
   id: string;
   options: OptionType[];
-  title: string;
+  title?: string;
   className?: string;
   classNameButton?: string;
   handleChange: (value: string) => void;
   selectedOption: string;
   label?: string;
   error?: string;
+  isSearch?: boolean;
 }
 
-const SelectWithSearch = ({
+const CustomSelect = ({
   id,
   className,
   classNameButton,
@@ -24,8 +26,10 @@ const SelectWithSearch = ({
   handleChange,
   selectedOption,
   label,
-  error
+  error,
+  isSearch = true
 }: Props) => {
+  const { t } = useTranslation();
   const [searchTerm, setSearchTerm] = useState("");
 
   const { isOpen, toggleDropdown, closeDropdown } = useDropdown(id);
@@ -50,29 +54,38 @@ const SelectWithSearch = ({
         }}
         style={{ display: "flex" }}
       >
-        {selectedOptionLabel ? selectedOptionLabel : title}
+        {selectedOptionLabel
+          ? selectedOptionLabel
+          : title
+          ? title
+          : t("selectOption")}
       </button>
-      {error && <label className="text-danger">{error}</label>}
+      {error && <label className="text-danger">{t(error)}</label>}
       {isOpen && (
         <ul
           className="dropdown-menu show dropdownCard"
           aria-labelledby={id}
           onClick={(e) => e.stopPropagation()}
         >
-          <li className="p-2">
-            <input
-              type="text"
-              className="form-control"
-              placeholder="Buscar..."
-              onChange={(e) => setSearchTerm(e.target.value)}
-              value={searchTerm}
-            />
-          </li>
-          <li>
-            <span className="dropdown-item bg-secondary dropdownCard__title text-white">
-              {title}
-            </span>
-          </li>
+          {isSearch && (
+            <li className="p-2">
+              <input
+                type="text"
+                className="form-control"
+                placeholder="Buscar..."
+                onChange={(e) => setSearchTerm(e.target.value)}
+                value={searchTerm}
+              />
+            </li>
+          )}
+
+          {title && (
+            <li>
+              <span className="dropdown-item bg-secondary dropdownCard__title text-white">
+                {title}
+              </span>
+            </li>
+          )}
           {filteredOptions.map((option) => (
             <li key={option.value}>
               <button
@@ -96,4 +109,4 @@ const SelectWithSearch = ({
   );
 };
 
-export default SelectWithSearch;
+export default CustomSelect;

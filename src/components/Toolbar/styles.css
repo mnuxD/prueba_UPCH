@@ -1,0 +1,17 @@
+.contentToolbar {
+  width: 100%;
+  background-color: black;
+  height: 3.5rem;
+  display: flex;
+  padding: 0rem 2rem;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.logo {
+  height: 2.9rem;
+  cursor: pointer;
+}
+.customSelectNavbar {
+  width: 10rem;
+}

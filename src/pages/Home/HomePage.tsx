@@ -1,22 +1,25 @@
 import React from "react";
-import "./styles.css";
 import TableList from "./components/TableList/TableList";
 import LoadingComponent from "../../components/LoadingComponent/LoadingComponent";
 import { useGetUsers } from "../../redux/hooks/userHooks";
+import { useTranslation } from "react-i18next";
+import "./styles.css";
 
 const HomePage = () => {
   const { data, isLoading, refetch } = useGetUsers();
+  const { t } = useTranslation();
+
   return (
-    <main className="main-container">
+    <div className="mainContainer">
       <div className="container content">
-        <h2>Mi tabla</h2>
+        <h2>{t("title")}</h2>
         {isLoading ? (
           <LoadingComponent />
         ) : (
           <TableList isLoading={isLoading} data={data} refetch={refetch} />
         )}
       </div>
-    </main>
+    </div>
   );
 };
 

@@ -7,11 +7,10 @@ import UserCoordinates from "./UserCoordinates";
 import { FormProvider, SubmitHandler, useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { CreateUserInput, defaultValues, userFormSchema } from "./formUtils";
-import "./styles.css";
 import { useCreateUser, useUpdateUser } from "../../../redux/hooks/userHooks";
-import { getValue } from "@testing-library/user-event/dist/utils";
 import ModalAlert from "../../../components/ModalAlert/ModalAlert";
 import { useModal } from "../../../hooks/use-modal";
+import "./styles.css";
 
 interface Props {
   data?: UserType;

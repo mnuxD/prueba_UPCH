@@ -3,6 +3,7 @@ import HeaderCell from "../../../../components/HeaderCell/HeaderCell";
 import { UserType } from "../../../../redux/apis/userApi/types";
 import { Button } from "react-bootstrap";
 import "./styles.css";
+import { TFunction } from "i18next";
 
 type Columns = {
   sortConfig?: any;
@@ -11,6 +12,7 @@ type Columns = {
   onEditItem: (id: string) => void;
   onHeaderCellClick: (value: string) => void;
   onChecked?: (id: string) => void;
+  t: TFunction<"translation", undefined>;
 };
 
 export const getColumns = ({
@@ -19,7 +21,8 @@ export const getColumns = ({
   onDeleteItem,
   onEditItem,
   onHeaderCellClick,
-  onChecked
+  onChecked,
+  t
 }: Columns) => [
   {
     title: <HeaderCell title={<i className="bi bi-gear"></i>} />,
@@ -40,7 +43,7 @@ export const getColumns = ({
           variant="outline-primary"
           size="sm"
           className="p-1"
-          title="Editar usuario"
+          title={t("editUser")}
           onClick={() => onEditItem(user.email)}
         >
           <i className="bi bi-pencil"></i>
@@ -50,7 +53,7 @@ export const getColumns = ({
           variant="outline-danger"
           size="sm"
           className="p-1"
-          title="Eliminar usuario"
+          title={t("deleteUser")}
           onClick={() => onDeleteItem(user.email)}
         >
           <i className="bi bi-trash3"></i>
@@ -70,7 +73,7 @@ export const getColumns = ({
   {
     title: (
       <HeaderCell
-        title="Nombre"
+        title={t("name")}
         sortable
         sortConfig={sortConfig}
         keySort="name"
@@ -82,11 +85,10 @@ export const getColumns = ({
     width: 150,
     render: (name: string) => name
   },
-
   {
     title: (
       <HeaderCell
-        title="Género"
+        title={t("gender")}
         sortable
         sortConfig={sortConfig}
         keySort="gender"
@@ -96,25 +98,25 @@ export const getColumns = ({
     dataIndex: "gender",
     key: "gender",
     width: 120,
-    render: (gender: string) => gender
+    render: (gender: string) => t(gender)
   },
 
   {
-    title: "Dirección",
+    title: t("address"),
     dataIndex: "address",
     key: "address",
     width: 200,
     render: (address: string) => address
   },
   {
-    title: "Teléfono",
+    title: t("phone"),
     dataIndex: "phone",
     key: "phone",
     width: 120,
     render: (phone: string) => phone
   },
   {
-    title: "Correo electrónico",
+    title: t("email"),
     dataIndex: "email",
     key: "email",
     width: 150,
@@ -123,7 +125,7 @@ export const getColumns = ({
   {
     title: (
       <HeaderCell
-        title="País"
+        title={t("country")}
         sortable
         sortConfig={sortConfig}
         keySort="country"
@@ -133,39 +135,6 @@ export const getColumns = ({
     dataIndex: "country",
     key: "country",
     width: 100,
-    render: (country: string) => country
+    render: (country: string) => t(country)
   }
-  //   {
-  //     // Need to avoid this issue ->  elements in a large <table> do not have table headers.
-  //     title: <HeaderCell title="Acciones" className="opacity-0" />,
-  //     dataIndex: "action",
-  //     key: "action",
-  //     width: 120,
-  //     render: (_: string, row: Catalog) => (
-  //       <div className="flex items-center justify-end gap-3 pe-4">
-  //         <Tooltip
-  //           size="sm"
-  //           content={() => "Editar Catálogo"}
-  //           placement="top"
-  //           color="invert"
-  //         >
-  //           <Link href={routes.catalog.editCatalog(row.id!)}>
-  //             <ActionIcon
-  //               size="sm"
-  //               variant="outline"
-  //               aria-label={"Editar Catálogo"}
-  //             >
-  //               <PencilIcon className="h-4 w-4" />
-  //             </ActionIcon>
-  //           </Link>
-  //         </Tooltip>
-
-  //         <DeletePopover
-  //           title={`Borrar Catálogo`}
-  //           description={`¿Estás seguro de borrar ${row.name} de la lista de Catálogos?`}
-  //           onDelete={() => onDeleteItem(row.id!)}
-  //         />
-  //       </div>
-  //     )
-  //   }
 ];

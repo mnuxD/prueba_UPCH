@@ -1,3 +1,7 @@
 .App {
   background-color: 245, 246, 246;
 }
+
+.contentRoutes {
+  height: calc(100vh - 3.5rem);
+}

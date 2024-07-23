@@ -1,4 +1,5 @@
 import { useState, useEffect, useMemo } from "react";
+import { useTranslation } from "react-i18next";
 
 interface AnyObject {
   [key: string]: any;
@@ -10,6 +11,7 @@ export function useTable<T extends AnyObject>(
   initialFilterState?: Partial<Record<string, any>>
 ) {
   const [data, setData] = useState(initialData);
+  const { t } = useTranslation();
 
   /*
    * Handle row selection
@@ -38,8 +40,8 @@ export function useTable<T extends AnyObject>(
 
   function sortData(data: T[], sortKey: string, sortDirection: string) {
     return [...data].sort((a, b) => {
-      const aValue = a[sortKey];
-      const bValue = b[sortKey];
+      const aValue = t(a[sortKey]);
+      const bValue = t(b[sortKey]);
 
       if (aValue < bValue) {
         return sortDirection === "asc" ? -1 : 1;
@@ -121,7 +123,7 @@ export function useTable<T extends AnyObject>(
             ([key, value]) =>
               !excludeKeys.includes(key) &&
               value &&
-              String(value).toLowerCase().includes(searchTermLower)
+              String(t(value)).toLowerCase().includes(searchTermLower)
           )
         )
     );
