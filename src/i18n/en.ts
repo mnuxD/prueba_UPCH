@@ -84,6 +84,7 @@ export const enLocale = {
     sureDeleteUser: "Are you sure you want to delete",
     permanently: "permanently",
     thisUser: "this user",
+    results: "Results",
 
     // User
     information: "Information",
@@ -98,12 +99,19 @@ export const enLocale = {
     userNatIsRequired: "User nationality is required",
     userPhotoIsRequired: "User photo is required",
     userLocationIsRequired: "User location is required",
+    userAddressIsRequired: "User address is required",
+    userCountryIsRequired: "User country is required",
     userLocation: "User Location",
     userInfo: "User Information",
     userPhoto: "User Photo",
 
     //Not Found
     pageNotFound: "Page Not Found",
-    messageNotFound: "Sorry, the page you are looking for does not exist."
+    messageNotFound: "Sorry, the page you are looking for does not exist.",
+
+    //Document Title
+    home: "Home",
+    test: "Test",
+    notFound: "Error 404"
   }
 };

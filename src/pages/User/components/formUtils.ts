@@ -24,7 +24,9 @@ const messages = {
   userEmailInvalid: "userEmailInvalid",
   userNatIsRequired: "userNatIsRequired",
   userPhotoIsRequired: "userPhotoIsRequired",
-  userLocationIsRequired: "userLocationIsRequired"
+  userLocationIsRequired: "userLocationIsRequired",
+  userAddressIsRequired: "userAddressIsRequired",
+  userCountryIsRequired: "userCountryIsRequired"
 };
 
 export const userFormSchema = z.object({
@@ -59,14 +61,14 @@ export const userFormSchema = z.object({
     .min(1, { message: messages.userNatIsRequired }),
   address: z
     .string({
-      required_error: messages.userLocationIsRequired
+      required_error: messages.userAddressIsRequired
     })
-    .min(1, { message: messages.userLocationIsRequired }),
+    .min(1, { message: messages.userAddressIsRequired }),
   country: z
     .string({
-      required_error: messages.userLocationIsRequired
+      required_error: messages.userCountryIsRequired
     })
-    .min(1, { message: messages.userLocationIsRequired }),
+    .min(1, { message: messages.userCountryIsRequired }),
   lat: z.number(),
   lng: z.number()
 });

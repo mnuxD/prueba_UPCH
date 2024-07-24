@@ -65,6 +65,12 @@ const TablePagination = ({
   return (
     <div className="table-pagination">
       <div className="rowsPage">
+        <label>
+          {t("results")}
+          {" : "}
+          <strong>{totalItems}</strong>
+        </label>
+        <label>{" | "}</label>
         <label>{t("rowsPerPage")}:</label>
         <select
           onChange={(e) => {
